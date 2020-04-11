@@ -43,15 +43,7 @@
     </head>
     <body>
         <div id = 'all' class = "centerBox">
-            <p id = "prog"></p>
-            <h1 id = "question">Q. 당신의 이상형은?</h1>
-                <div id = "ops">
-                    <input type="button" onclick="prog(0)" value="asdf"><br>
-                    <input type="button" onclick="prog(1)" value="asdf"><br>
-                    <input type="button" onclick="prog(2)" value="asdf"><br>
-                    <input type="button" onclick="prog(3)" value="asdf">
-                </div>
-                <p id = 'asdf'></p>
+
             </div>
         <script>
             var progress = 0;
@@ -89,14 +81,30 @@
 신기하다!만지고 싶다!편안하다!행복하다
 2회!1회!5회 이상!4회
 똑똑한 사람!예쁜/잘생긴 사람!공감 할 수 있는 사람!멋진 사람`;
-            document.addEventListener('DOMContentLoaded', e => {
+            function firstload(){
+                document.getElementById('all').innerHTML=`
+                <p id = "prog"></p>
+                <h1 id = "question">Q. 당신의 이상형은?</h1>
+                <div id = "ops">
+                    <input type="button" onclick="prog(0)" value="asdf"><br>
+                    <input type="button" onclick="prog(1)" value="asdf"><br>
+                    <input type="button" onclick="prog(2)" value="asdf"><br>
+                    <input type="button" onclick="prog(3)" value="asdf">
+                </div>
+                <p id = 'asdf'></p>
+                `;
                 document.getElementById('ops').children[0].setAttribute('value', ids.split('\n')[0].split('!')[0]);
                 document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[0].split('!')[1]);
                 document.getElementById('ops').children[4].setAttribute('value', ids.split('\n')[0].split('!')[2]);
                 document.getElementById('ops').children[6].setAttribute('value', ids.split('\n')[0].split('!')[3]);
                 document.getElementById('question').innerText = questionlist.split('\n')[0];
                 document.getElementById('prog').innerText = '진행: '+ '1' + '/' + questions;
+            }
+           
+            document.addEventListener('DOMContentLoaded', e => {
+                firstload
             });
+
             function judge(){
                 var dx = [];
                 for(let i = 0;i < questions; i++) {
