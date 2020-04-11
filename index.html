@@ -4,7 +4,13 @@
         <title>적절~한 테스트</title>
         <meta charset="UTF-8">
         <style>
-
+            @FONT-FACE{
+                font-family: 'hsWind';
+                src: url(./fonts/BMJUA.ttf);
+            }
+            body{
+                font-family: 'hsWind', sans-serif;
+            }
         </style>
     </head>
     <body>
@@ -21,8 +27,9 @@
         <script>
             var progress = 0;
             const questions = 5;
-            var percentage = [0, 0, 0, 0];
+            var percentage = [0, 0, 0, 0, 0];
             var list = [];
+            var biggest = [0,0,0,0];
             const cases = [
                 {title:`당신은 천재적인 유형!`
                 ,script:`당신은 상위 0.1%의 천재적인 인물! 축하드립니다! 당신은 수학, 과학, 영어 등 모든 과목을 잘 하는 사람입니다!`
@@ -42,33 +49,51 @@
 당신이 좋아하는 과목은?
 당신은 벚꽃을 보고 어떤 생각을 합니까?
 당신의 연애 경험은?
-테스트가 종료되었습니다.`;
+당신의 이상형은?`;
             const ids = 
                 `옵션1-1!옵션1-2!옵션1-3!옵션1-4
 옵션2-1!옵션2-2!옵션2-3!옵션2-4
 옵션3-1!옵션3-2!옵션3-3!옵션3-4
 옵션4-1!옵션4-2!옵션4-3!옵션4-4
 옵션5-1!옵션5-2!옵션5-3!옵션5-4`;
-
+            document.addEventListener('DOMContentLoaded', e => {
+                document.getElementById('ops').children[0].setAttribute('value', ids.split('\n')[0].split('!')[0]);
+                document.getElementById('ops').children[1].setAttribute('value', ids.split('\n')[0].split('!')[1]);
+                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[0].split('!')[2]);
+                document.getElementById('ops').children[3].setAttribute('value', ids.split('\n')[0].split('!')[3]);
+                document.getElementById('question').innerText = questionlist.split('\n')[0];
+            });
             function judge(){
-                for(var i = 0;i < questions; i++) {
+                var dx = [];
+                for(let i = 0;i < questions; i++) {
                     percentage[list[i]] += 100 / questions;
                 }
+                for (let index = 0; index < 4; index++) {
+                    let max = 4;
+                    for (let index2 = 0; index2 < 4; index2++) {
+                        if(dx.indexOf(index2) == -1){
+                            if(percentage[max] <= percentage[index2]){
+                                max = index2;
+                            }
+                        }
+                    }
+                    biggest[index] = max;
+                    console.log(percentage[max]);
+                    dx.push(max);
+                }
+                console.log(biggest);
             }
             function reload(){
                 document.getElementById('all').innerHTML = `
-                <h1>${cases[1].title}</h1>
-                <h3>${cases[1].script}</h3>
+                <h1>${cases[biggest[0]].title}</h1>
+                <h3>${cases[biggest[0]].script}</h3>
+                똑똑함 : <progress value="${percentage[biggest[0]]}" max="100"></progress><br>
+                재밌음 : <progress value="${percentage[biggest[1]]}" max="100"></progress><br>
+                감수성 : <progress value="${percentage[biggest[2]]}" max="100"></progress><br>
+                침착함 : <progress value="${percentage[biggest[3]]}" max="100"></progress>
                 `
             }
             function prog(i){
-                console.log('asdf');
-                console.log(i + '/' +progress);
-                document.getElementById('ops').children[0].setAttribute('value', ids.split('\n')[progress].split('!')[0]);
-                document.getElementById('ops').children[1].setAttribute('value', ids.split('\n')[progress].split('!')[1]);
-                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[progress].split('!')[2]);
-                document.getElementById('ops').children[3].setAttribute('value', ids.split('\n')[progress].split('!')[3]);
-                document.getElementById('question').innerText = questionlist.split('\n')[progress];
                 list.push(i);
                 progress += 1;
                 console.log(progress);
@@ -76,6 +101,11 @@
                     judge();
                     reload();
                 }
+                document.getElementById('ops').children[0].setAttribute('value', ids.split('\n')[progress].split('!')[0]);
+                document.getElementById('ops').children[1].setAttribute('value', ids.split('\n')[progress].split('!')[1]);
+                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[progress].split('!')[2]);
+                document.getElementById('ops').children[3].setAttribute('value', ids.split('\n')[progress].split('!')[3]);
+                document.getElementById('question').innerText = questionlist.split('\n')[progress];
             }
         </script>
     </body>
