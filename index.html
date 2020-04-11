@@ -10,20 +10,49 @@
             }
             body{
                 font-family: 'hsWind', sans-serif;
+                text-align: center;
+            }
+            input{
+                margin-bottom: 5px;
+                width: 300px;
+                font-size: 23px;
+                height: 50px;
+                background: gray;
+                color: white;
+                border: thick;
+                font-family: 'hsWind', sans-serif;
+            }
+            input:hover{
+                background: rgb(94, 94, 94);
+            }
+            .centerBox{
+                padding: 10px;
+                height: 700px;
+                max-width: 600px;
+                border: solid 1px rgb(130, 130, 130);
+                text-align: center;
+                margin: 0 auto 0 auto;
+                background-color: rgb(234, 234, 234);
+            }
+            .progressBar{
+                border-radius: 1px;
+                height: 30px;
+                width: 200px;
             }
         </style>
     </head>
     <body>
-        <div id = 'all'>
+        <div id = 'all' class = "centerBox">
+            <p id = "prog"></p>
             <h1 id = "question">Q. 당신의 이상형은?</h1>
                 <div id = "ops">
-                    <input type="button" onclick="prog(0)" value="asdf">
-                    <input type="button" onclick="prog(1)" value="asdf">
-                    <input type="button" onclick="prog(2)" value="asdf">
+                    <input type="button" onclick="prog(0)" value="asdf"><br>
+                    <input type="button" onclick="prog(1)" value="asdf"><br>
+                    <input type="button" onclick="prog(2)" value="asdf"><br>
                     <input type="button" onclick="prog(3)" value="asdf">
                 </div>
                 <p id = 'asdf'></p>
-        </div>
+            </div>
         <script>
             var progress = 0;
             const questions = 5;
@@ -31,16 +60,20 @@
             var list = [];
             var biggest = [0,0,0,0];
             const cases = [
-                {title:`당신은 천재적인 유형!`
+                {type: `똑똑함`
+                ,title:`당신은 천재적인 유형!`
                 ,script:`당신은 상위 0.1%의 천재적인 인물! 축하드립니다! 당신은 수학, 과학, 영어 등 모든 과목을 잘 하는 사람입니다!`
                 },
-                {title:`당신은 재미있는 유형!`
+                {type: `재밌음`
+                ,title:`당신은 재미있는 유형!`
                 ,script:`당신은 상위 0.1%의 재미난 인물! 축하드립니다! 당신은 지인들에게 인기가 많은 사람입니다!`
                 },
-                {title:`당신은 감성적인 유형!`
+                {type: `감수성`
+                ,title:`당신은 감성적인 유형!`
                 ,script:`당신은 상위 0.1%의 감성적인 인물! 축하드립니다! 당신은 감성으로 친구들과 공감대를 잘 형성하며, 인기 또한 많습니다!`
                 },
-                {title:`당신은 이성적인 유형!`
+                {type: `침착함`
+                ,title:`당신은 이성적인 유형!`
                 ,script:`당신은 상위 0.1%의 이성적인 인물! 축하드립니다! 당신은 어떤 상황에도 당황하지 않는 분이시고, 이를 통해 많은 고비를 헤쳐나갈 수 있습니다!`
                 }
             ];
@@ -51,17 +84,18 @@
 당신의 연애 경험은?
 당신의 이상형은?`;
             const ids = 
-                `옵션1-1!옵션1-2!옵션1-3!옵션1-4
-옵션2-1!옵션2-2!옵션2-3!옵션2-4
-옵션3-1!옵션3-2!옵션3-3!옵션3-4
-옵션4-1!옵션4-2!옵션4-3!옵션4-4
-옵션5-1!옵션5-2!옵션5-3!옵션5-4`;
+                `오로지 공부만에 집중한다!여러가지의 도움을 받아 한다!필기를 해가며 한다!집중하여 한다
+수학!체육!음악!과학
+신기하다!만지고 싶다!편안하다!행복하다
+2회!1회!5회 이상!4회
+똑똑한 사람!예쁜/잘생긴 사람!공감 할 수 있는 사람!멋진 사람`;
             document.addEventListener('DOMContentLoaded', e => {
                 document.getElementById('ops').children[0].setAttribute('value', ids.split('\n')[0].split('!')[0]);
-                document.getElementById('ops').children[1].setAttribute('value', ids.split('\n')[0].split('!')[1]);
-                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[0].split('!')[2]);
-                document.getElementById('ops').children[3].setAttribute('value', ids.split('\n')[0].split('!')[3]);
+                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[0].split('!')[1]);
+                document.getElementById('ops').children[4].setAttribute('value', ids.split('\n')[0].split('!')[2]);
+                document.getElementById('ops').children[6].setAttribute('value', ids.split('\n')[0].split('!')[3]);
                 document.getElementById('question').innerText = questionlist.split('\n')[0];
+                document.getElementById('prog').innerText = '진행: '+ '1' + '/' + questions;
             });
             function judge(){
                 var dx = [];
@@ -87,10 +121,10 @@
                 document.getElementById('all').innerHTML = `
                 <h1>${cases[biggest[0]].title}</h1>
                 <h3>${cases[biggest[0]].script}</h3>
-                똑똑함 : <progress value="${percentage[biggest[0]]}" max="100"></progress><br>
-                재밌음 : <progress value="${percentage[biggest[1]]}" max="100"></progress><br>
-                감수성 : <progress value="${percentage[biggest[2]]}" max="100"></progress><br>
-                침착함 : <progress value="${percentage[biggest[3]]}" max="100"></progress>
+                <h3>${cases[biggest[0]].type}</h3><progress class="progressBar" value="${percentage[biggest[0]]}" max="100"></progress><br>
+                <h3>${cases[biggest[1]].type}</h3><progress class="progressBar" value="${percentage[biggest[1]]}" max="100"></progress><br>
+                <h3>${cases[biggest[2]].type}</h3><progress class="progressBar" value="${percentage[biggest[2]]}" max="100"></progress><br>
+                <h3>${cases[biggest[3]].type}</h3><progress class="progressBar" value="${percentage[biggest[3]]}" max="100"></progress>
                 `
             }
             function prog(i){
@@ -102,10 +136,11 @@
                     reload();
                 }
                 document.getElementById('ops').children[0].setAttribute('value', ids.split('\n')[progress].split('!')[0]);
-                document.getElementById('ops').children[1].setAttribute('value', ids.split('\n')[progress].split('!')[1]);
-                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[progress].split('!')[2]);
-                document.getElementById('ops').children[3].setAttribute('value', ids.split('\n')[progress].split('!')[3]);
+                document.getElementById('ops').children[2].setAttribute('value', ids.split('\n')[progress].split('!')[1]);
+                document.getElementById('ops').children[4].setAttribute('value', ids.split('\n')[progress].split('!')[2]);
+                document.getElementById('ops').children[6].setAttribute('value', ids.split('\n')[progress].split('!')[3]);
                 document.getElementById('question').innerText = questionlist.split('\n')[progress];
+                document.getElementById('prog').innerText = '진행: ' + (progress + 1) + '/' + questions;
             }
         </script>
     </body>
