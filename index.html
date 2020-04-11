@@ -12,7 +12,7 @@
                 font-family: 'hsWind', sans-serif;
                 text-align: center;
             }
-            input{
+            .input{
                 margin-bottom: 5px;
                 width: 300px;
                 font-size: 23px;
@@ -22,7 +22,7 @@
                 border: thick;
                 font-family: 'hsWind', sans-serif;
             }
-            input:hover{
+            .input:hover{
                 background: rgb(94, 94, 94);
             }
             .centerBox{
@@ -43,14 +43,14 @@
     </head>
     <body>
         <div id = 'all' class = "centerBox">
-
-            </div>
+        </div>
         <script>
             var progress = 0;
             const questions = 5;
             var percentage = [0, 0, 0, 0, 0];
             var list = [];
             var biggest = [0,0,0,0];
+            var name;
             const cases = [
                 {type: `똑똑함`
                 ,title:`당신은 천재적인 유형!`
@@ -86,10 +86,10 @@
                 <p id = "prog"></p>
                 <h1 id = "question">Q. 당신의 이상형은?</h1>
                 <div id = "ops">
-                    <input type="button" onclick="prog(0)" value="asdf"><br>
-                    <input type="button" onclick="prog(1)" value="asdf"><br>
-                    <input type="button" onclick="prog(2)" value="asdf"><br>
-                    <input type="button" onclick="prog(3)" value="asdf">
+                    <input type="button" onclick="prog(0)" value="asdf" class="input"><br>
+                    <input type="button" onclick="prog(1)" value="asdf" class="input"><br>
+                    <input type="button" onclick="prog(2)" value="asdf" class="input"><br>
+                    <input type="button" onclick="prog(3)" value="asdf" class="input">
                 </div>
                 <p id = 'asdf'></p>
                 `;
@@ -100,11 +100,9 @@
                 document.getElementById('question').innerText = questionlist.split('\n')[0];
                 document.getElementById('prog').innerText = '진행: '+ '1' + '/' + questions;
             }
-           
             document.addEventListener('DOMContentLoaded', e => {
-                firstload
+                firstload();
             });
-
             function judge(){
                 var dx = [];
                 for(let i = 0;i < questions; i++) {
