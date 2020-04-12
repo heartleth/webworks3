@@ -39,11 +39,16 @@
                 height: 30px;
                 width: 200px;
             }
+            .addthis_inline_share_toolbox{
+                margin: 3px auto 3px auto;
+            }
         </style>
     </head>
     <body>
         <div id = 'all' class = "centerBox">
         </div>
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+        <div class = "addthis_inline_share_toolbox"></div>
         <script>
             var progress = 0;
             const questions = 5;
@@ -98,7 +103,7 @@
                 document.getElementById('ops').children[4].setAttribute('value', ids.split('\n')[0].split('!')[2]);
                 document.getElementById('ops').children[6].setAttribute('value', ids.split('\n')[0].split('!')[3]);
                 document.getElementById('question').innerText = questionlist.split('\n')[0];
-                document.getElementById('prog').innerText = '진행: '+ '1' + '/' + questions;
+                document.getElementById('prog').innerText = '진행: '+ '1' + '/' + questions;     
             }
             document.addEventListener('DOMContentLoaded', e => {
                 firstload();
@@ -131,7 +136,7 @@
                 <h3>${cases[biggest[1]].type}</h3><progress class="progressBar" value="${percentage[biggest[1]]}" max="100"></progress><br>
                 <h3>${cases[biggest[2]].type}</h3><progress class="progressBar" value="${percentage[biggest[2]]}" max="100"></progress><br>
                 <h3>${cases[biggest[3]].type}</h3><progress class="progressBar" value="${percentage[biggest[3]]}" max="100"></progress>
-                `
+                `;
             }
             function prog(i){
                 list.push(i);
@@ -149,5 +154,7 @@
                 document.getElementById('prog').innerText = '진행: ' + (progress + 1) + '/' + questions;
             }
         </script>
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e92a0dbf878b386"></script>
     </body>
 </html>
